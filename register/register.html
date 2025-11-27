@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register | DailyForge</title>
+  <link rel="stylesheet" href="register.css" />
+  <style>
+    /* Extra styles for modern date dropdowns */
+    .dob-group {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.6rem;
+    }
+
+    select {
+      flex: 1;
+      padding: 0.6rem 0.8rem;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+      font-size: 1rem;
+      color: #fff;
+      background: rgba(255, 255, 255, 0.15);
+      appearance: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    select:focus {
+      background: rgba(255, 255, 255, 0.25);
+      box-shadow: 0 0 8px #00b4d8;
+    }
+
+    .dob-label {
+      display: block;
+      margin-bottom: 0.4rem;
+      font-weight: 500;
+    }
+
+    /* Dropdown arrow customization */
+    select::-ms-expand {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="background">
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+  </div>
+
+  <div class="register-container">
+    <h1>Create Your Account</h1>
+    <p class="subtitle">Join DailyForge to forge discipline and focus every day!</p>
+
+    <form id="registerForm">
+      <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" id="name" placeholder="Enter your full name" required />
+      </div>
+
+      <!-- Modern Date of Birth Dropdown -->
+      <div class="form-group">
+        <label class="dob-label">Date of Birth</label>
+        <div class="dob-group">
+          <select id="day" required>
+            <option value="" disabled selected>DD</option>
+          </select>
+          <select id="month" required>
+            <option value="" disabled selected>MM</option>
+          </select>
+          <select id="year" required>
+            <option value="" disabled selected>YYYY</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Institution / University</label>
+        <input type="text" id="institution" placeholder="Your institution name" required />
+      </div>
+
+      <div class="form-group">
+        <label>Email (Gmail)</label>
+        <input type="email" id="email" placeholder="example@gmail.com" required />
+      </div>
+
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" id="username" placeholder="Min 6 - Max 10 characters" required />
+        <small>Must include 1 capital letter, 1 digit, no special characters.</small>
+      </div>
+
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="password" placeholder="Enter password" required />
+        <small>8–13 chars, 1 capital, 1 digit, 1 special character.</small>
+      </div>
+
+      <div class="form-group">
+        <label>Confirm Password</label>
+        <input type="password" id="confirmPassword" placeholder="Confirm password" required />
+      </div>
+
+      <button type="submit" class="submit-btn">Register</button>
+    </form>
+
+    <p class="login-link">Already have an account? <a href="../login/login.html">Login</a></p>
+  </div>
+
+  <script>
+    // Populate date dropdowns dynamically
+    const daySelect = document.getElementById("day");
+    const monthSelect = document.getElementById("month");
+    const yearSelect = document.getElementById("year");
+
+    // Days 1–31
+    for (let i = 1; i <= 31; i++) {
+      const option = document.createElement("option");
+      option.value = i < 10 ? `0${i}` : i;
+      option.textContent = i < 10 ? `0${i}` : i;
+      daySelect.appendChild(option);
+    }
+
+    // Months 1–12
+    for (let i = 1; i <= 12; i++) {
+      const option = document.createElement("option");
+      option.value = i < 10 ? `0${i}` : i;
+      option.textContent = i < 10 ? `0${i}` : i;
+      monthSelect.appendChild(option);
+    }
+
+    // Years (current year - 100)
+    const currentYear = new Date().getFullYear();
+    for (let i = currentYear; i >= currentYear - 100; i--) {
+      const option = document.createElement("option");
+      option.value = i;
+      option.textContent = i;
+      yearSelect.appendChild(option);
+    }
+
+    // Combine DOB into hidden format (dd/mm/yyyy)
+    document.getElementById("registerForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const day = daySelect.value;
+      const month = monthSelect.value;
+      const year = yearSelect.value;
+
+      if (!day || !month || !year) {
+        alert("Please select a valid date of birth.");
+        return;
+      }
+
+      const formattedDOB = `${day}/${month}/${year}`;
+      console.log("Date of Birth:", formattedDOB);
+
+      // You can include this in your form submission payload:
+      // e.g., send formattedDOB to backend
+    });
+  </script>
+</body>
+</html>

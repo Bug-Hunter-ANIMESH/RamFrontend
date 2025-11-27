@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DailyForge | Login & Sign Up</title>
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Poppins", sans-serif; }
+
+    body {
+      background: linear-gradient(135deg, #141e30, #243b55);
+      height: 100vh; display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+
+    /* LOADER */
+    #loader {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(0,0,0,0.7);
+      z-index: 999;
+      visibility: hidden; opacity: 0;
+      transition: visibility .3s, opacity .3s;
+    }
+
+    .loader-circle {
+      border: 6px solid #ffffff33;
+      border-top: 6px solid #00c6ff;
+      width: 70px; height: 70px; border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Background circles */
+    .bg { position: absolute; width: 100%; height: 100%; overflow: hidden; z-index: -1; }
+    .circle {
+      position: absolute; width: 200px; height: 200px; background: rgba(255,255,255,0.05);
+      border-radius: 50%; animation: float 8s infinite linear;
+    }
+    .circle:nth-child(1) { top: 10%; left: 15%; animation-duration: 7s; }
+    .circle:nth-child(2) { top: 60%; left: 70%; animation-duration: 9s; }
+    .circle:nth-child(3) { top: 30%; left: 80%; animation-duration: 6s; }
+
+    @keyframes float { from { transform: translateY(0px);} to { transform: translateY(-40px);} }
+
+    .container {
+      width: 380px; background: rgba(255,255,255,0.1); padding: 30px;
+      border-radius: 15px; backdrop-filter: blur(10px); color: #fff;
+      box-shadow: 0px 0px 20px rgba(0,0,0,0.4);
+    }
+
+    h1 { text-align: center; margin-bottom: 10px; }
+    .tabs { display: flex; justify-content: center; margin-bottom: 20px; }
+    .tab {
+      padding: 10px 25px; cursor: pointer; border-radius: 20px;
+      margin: 0 10px; background: rgba(255,255,255,0.1); transition: 0.3s;
+    }
+    .active-tab { background: #00c6ff; color: #000; font-weight: bold; }
+
+    .form-group { margin-bottom: 15px; }
+    input {
+      width: 100%; padding: 12px; border: none; outline: none;
+      border-radius: 8px; background: rgba(255,255,255,0.2); color: #fff;
+    }
+
+    button {
+      width: 100%; padding: 12px; border: none; border-radius: 8px;
+      background: #00c6ff; color: #000; font-weight: bold; cursor: pointer;
+    }
+    button:hover { background: #02a8d4; }
+
+    .hidden { display: none; }
+
+    .popup {
+      background: #ffffff;
+      color: #000;
+      padding: 12px;
+      border-radius: 10px;
+      font-size: 14px;
+      display: none;
+      box-shadow: 0px 0px 10px rgba(255,255,255,0.4);
+    }
+    .popup-item { margin: 5px 0; }
+    .valid { color: green; font-weight: bold; }
+    .invalid { color: red; font-weight: bold; }
+  </style>
+</head>
+
+<body>
+
+  <!-- FULL SCREEN LOADER -->
+  <div id="loader">
+    <div class="loader-circle"></div>
+  </div>
+
+  <div class="bg">
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+  </div>
+
+  <div class="container">
+    <h1>DailyForge</h1>
+
+    <div class="tabs">
+      <div class="tab active-tab" id="loginTab">Login</div>
+      <div class="tab" id="signupTab">Sign Up</div>
+    </div>
+
+    <!-- LOGIN FORM -->
+    <form id="loginForm">
+      <div class="form-group">
+        <label>User ID</label>
+        <input type="text" id="loginUser" required />
+      </div>
+
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="loginPass" required />
+      </div>
+
+      <button type="submit">Login</button>
+    </form>
+
+    <!-- SIGNUP FORM -->
+    <form id="signupForm" class="hidden">
+
+      <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" id="name" required />
+      </div>
+
+      <div class="form-group">
+        <label>Date of Birth</label>
+        <input type="date" id="dob" required />
+      </div>
+
+      <div class="form-group">
+        <label>Institution</label>
+        <input type="text" id="institution" required />
+      </div>
+
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" id="email" required />
+      </div>
+
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" id="username" maxlength="8" required />
+        <div class="popup" id="usernamePopup">
+          <div class="popup-item" id="u1">❌ Must be exactly 8 characters</div>
+          <div class="popup-item" id="u2">❌ Must contain at least 1 Capital Letter</div>
+          <div class="popup-item" id="u3">❌ Only letters, numbers & underscore allowed</div>
+          <div class="popup-item" id="u4">❌ No spaces allowed</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="password" required />
+        <div class="popup" id="passwordPopup">
+          <div class="popup-item" id="p1">❌ Length 8–13</div>
+          <div class="popup-item" id="p2">❌ First letter must be Capital</div>
+          <div class="popup-item" id="p3">❌ Must contain at least 1 number</div>
+          <div class="popup-item" id="p4">✔ Special characters allowed</div>
+        </div>
+      </div>
+
+      <button type="submit">Sign Up</button>
+    </form>
+  </div>
+
+<script>
+  const loader = document.getElementById("loader");
+
+  function showLoader() {
+    loader.style.visibility = "visible";
+    loader.style.opacity = "1";
+  }
+
+  function hideLoader() {
+    loader.style.visibility = "hidden";
+    loader.style.opacity = "0";
+  }
+
+  // TABS
+  document.getElementById("loginTab").onclick = () => {
+    loginForm.classList.remove("hidden");
+    signupForm.classList.add("hidden");
+  };
+  document.getElementById("signupTab").onclick = () => {
+    signupForm.classList.remove("hidden");
+    loginForm.classList.add("hidden");
+  };
+
+  // LOGIN API
+  loginForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    showLoader();
+
+    const res = await fetch("http://localhost:5000/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        username: document.getElementById("loginUser").value,
+        password: document.getElementById("loginPass").value
+      }),
+    });
+    hideLoader();
+
+    const data = await res.json();
+    if (data.token) {
+      sessionStorage.setItem("dailyforgeToken", data.token);
+      window.location.href = "../dashboard/dashboard.html";
+    } else alert(data.error);
+  });
+
+  // SIGNUP API
+  signupForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    showLoader();
+
+    const res = await fetch("http://localhost:5000/auth/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: document.getElementById("name").value,
+        dob: document.getElementById("dob").value,
+        institution: document.getElementById("institution").value,
+        email: document.getElementById("email").value,
+        username: document.getElementById("username").value,
+        password: document.getElementById("password").value
+      }),
+    });
+    hideLoader();
+
+    const data = await res.json();
+    if (data.user) {
+      alert("Registration Successful! Please Login.");
+      document.getElementById("loginTab").click();
+    } else alert(data.error);
+  });
+</script>
+
+</body>
+</html>

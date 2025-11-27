@@ -1,0 +1,241 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    font-family: "Poppins", sans-serif;
+    color: #fff;
+    background: linear-gradient(135deg, #0a0f1a, #121d2f);
+    overflow-x: hidden;
+  }
+  
+  /* Navbar */
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 3rem;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+  }
+  
+  .logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #00b4d8;
+  }
+  
+  .nav-links {
+    display: flex;
+    gap: 1.5rem;
+  }
+  
+  .nav-links li {
+    list-style: none;
+  }
+  
+  .nav-links a {
+    text-decoration: none;
+    color: #fff;
+    transition: color 0.3s;
+  }
+  
+  .nav-links a:hover {
+    color: #00b4d8;
+  }
+  
+  .nav-btns button {
+    background: #00b4d8;
+    color: #fff;
+    border: none;
+    margin-left: 0.8rem;
+    padding: 0.5rem 1.2rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .nav-btns button:hover {
+    background: #0077b6;
+  }
+  
+  /* Mobile menu */
+  .menu-toggle {
+    display: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #fff;
+  }
+  
+  /* Hero Section */
+  .hero {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8rem 2rem 4rem;
+    flex-wrap: wrap;
+  }
+  
+  .hero-content {
+    max-width: 500px;
+    animation: fadeInUp 1s ease-in-out;
+  }
+  
+  .hero-content h1 {
+    font-size: 2.8rem;
+    margin-bottom: 1rem;
+    color: #00b4d8;
+  }
+  
+  .hero-content p {
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+    color: #e0e0e0;
+  }
+  
+  .cta-btn {
+    background: #00b4d8;
+    padding: 0.8rem 1.6rem;
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .cta-btn:hover {
+    background: #0077b6;
+  }
+  
+  .hero-image img {
+    width: 350px;
+    animation: float 3s ease-in-out infinite;
+    margin-top: 2rem;
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  
+  /* Features Section */
+  .features {
+    text-align: center;
+    padding: 4rem 2rem;
+  }
+  
+  .features h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .feature-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+  }
+  
+  .feature-card {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2rem;
+    border-radius: 16px;
+    max-width: 300px;
+    text-align: center;
+    transition: transform 0.3s;
+  }
+  
+  .feature-card:hover {
+    transform: translateY(-10px);
+  }
+  
+  .feature-card img {
+    width: 70px;
+    margin-bottom: 1rem;
+  }
+  
+  /* Join Section */
+  .join {
+    background: #0a2239;
+    text-align: center;
+    padding: 4rem 2rem;
+  }
+  
+  .join h2 {
+    font-size: 2rem;
+    color: #00b4d8;
+    margin-bottom: 1rem;
+  }
+  
+  .join p {
+    color: #e0e0e0;
+    margin-bottom: 2rem;
+  }
+  
+  .join-btns button {
+    margin: 0.5rem;
+    background: #00b4d8;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .join-btns button:hover {
+    background: #0077b6;
+  }
+  
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 1.2rem;
+    background: #000;
+    color: #aaa;
+    font-size: 0.9rem;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .nav-links {
+      display: none;
+      flex-direction: column;
+      background: rgba(0, 0, 0, 0.9);
+      position: absolute;
+      top: 70px;
+      right: 0;
+      width: 200px;
+      padding: 1rem;
+    }
+  
+    .nav-links.active {
+      display: flex;
+    }
+  
+    .menu-toggle {
+      display: block;
+    }
+  
+    .hero {
+      flex-direction: column;
+    }
+  
+    .hero-content h1 {
+      font-size: 2rem;
+    }
+  }
+  
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
